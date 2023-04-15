@@ -11,7 +11,7 @@ public class AccessoryStore implements Store {
         else
             elements.add(elem);
     }
-    public void getSize(int size){
+    public void setSize(int size){
         Size = size;
     }
     public Detail getDetail(){

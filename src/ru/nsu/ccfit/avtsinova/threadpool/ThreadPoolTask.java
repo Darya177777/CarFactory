@@ -1,6 +1,8 @@
 package ru.nsu.ccfit.avtsinova.threadpool;
 
 
+import ru.nsu.ccfit.avtsinova.factory.Controller;
+import ru.nsu.ccfit.avtsinova.factory.Factory;
 
 class ThreadPoolTask {
    private TaskListener listener;
@@ -22,9 +24,9 @@ class ThreadPoolTask {
    {
       listener.taskInterrupted(task);
    }
-   void go() throws InterruptedException
+   void go(Factory factory, Controller controller) throws InterruptedException
    {
-      task.performWork();
+      task.performWork(factory, controller);
    }
    String getName()
    {

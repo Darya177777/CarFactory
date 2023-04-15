@@ -9,7 +9,7 @@ public class Window extends JFrame{
     public Integer SpeedSupA = 10;
     public Integer SpeedSupB = 0;
     public Boolean LogSale = false;
-    public void SliderTest() {
+    public void launch() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400, 400);
         //setLocation(100, 100);

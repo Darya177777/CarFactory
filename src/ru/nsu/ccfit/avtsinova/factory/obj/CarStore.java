@@ -11,7 +11,7 @@ public class CarStore implements Store {
     public void addCar(Car car){
         elements.add(car);
     }
-    public void getSize(int size){
+    public void setSize(int size){
         Size = size;
     }
     public Detail getDetail(){

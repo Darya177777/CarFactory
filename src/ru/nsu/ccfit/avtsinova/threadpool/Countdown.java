@@ -1,6 +1,8 @@
 package ru.nsu.ccfit.avtsinova.threadpool;
 
 
+import ru.nsu.ccfit.avtsinova.factory.Controller;
+import ru.nsu.ccfit.avtsinova.factory.Factory;
 
 public class Countdown implements Task {
    private String name;
@@ -12,7 +14,7 @@ public class Countdown implements Task {
       counter = count;
       timeQuant = quant;
    }
-   public void performWork() throws InterruptedException
+   public void performWork(Factory factory, Controller controller) throws InterruptedException
    {
       System.out.println(name+" " +counter);
       for (int i = counter-1; i >= 0; i--)
