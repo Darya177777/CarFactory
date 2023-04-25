@@ -18,16 +18,16 @@ public class CarStore implements Store {
         System.out.println("wrong method");
         return new Body();
     }
-    public Car getCar(){
+    public Car getCar() throws Exception {
         if (!elements.isEmpty()){
             return elements.remove(0);
         }
         else {
-            System.out.println("Error");
-            return new Car();
+            throw new Exception("error");
         }
     }
     public boolean isFilled(){
         return elements.size() == Size;
     }
+    public int getSize(){return elements.size();}
 }

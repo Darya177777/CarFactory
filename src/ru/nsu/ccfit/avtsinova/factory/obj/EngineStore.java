@@ -16,17 +16,18 @@ public class EngineStore implements Store{
     public void setSize(int size){
         Size = size;
     }
-    public Detail getDetail(){
+    public Detail getDetail() throws Exception {
         if (!elements.isEmpty()){
             return elements.remove(0);
         }
         else {
-            System.out.println("Error");
-            return new Body();
+            throw new Exception("error");
         }
     }
     public boolean isFilled(){
         return elements.size() == Size;
     }
-
+    public int getSize(){
+        return elements.size();
+    }
 }

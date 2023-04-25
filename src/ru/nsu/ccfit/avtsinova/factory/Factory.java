@@ -3,9 +3,9 @@ package ru.nsu.ccfit.avtsinova.factory;
 import ru.nsu.ccfit.avtsinova.factory.obj.*;
 
 public class Factory {
-    AccessoryStore AStore;
-    BodyStore BStore;
-    EngineStore EStore;
+    public AccessoryStore AStore;
+    public BodyStore BStore;
+    public EngineStore EStore;
     public void init(int SizeA, int SizeB, int SizeE){
         AStore = new AccessoryStore();
         BStore = new BodyStore();
@@ -23,13 +23,13 @@ public class Factory {
     public void addEngine(Engine el){
         EStore.addDetail(el);
     }
-    public Accessory getAccessory(){
+    public Accessory getAccessory() throws Exception {
         return (Accessory) AStore.getDetail();
     }
-    public Body getBody(){
+    public Body getBody() throws Exception {
         return (Body) BStore.getDetail();
     }
-    public Engine getEngine(){
+    public Engine getEngine() throws Exception {
         return (Engine) EStore.getDetail();
     }
 }

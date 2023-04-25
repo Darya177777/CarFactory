@@ -1,7 +1,6 @@
 package ru.nsu.ccfit.avtsinova.factory;
 
-import ru.nsu.ccfit.avtsinova.factory.people.Worker;
-import ru.nsu.ccfit.avtsinova.threadpool.Countdown;
+import ru.nsu.ccfit.avtsinova.factory.people.*;
 import ru.nsu.ccfit.avtsinova.threadpool.ThreadPool;
 
 import java.io.BufferedReader;
@@ -10,6 +9,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 public class MainProcess {
+    public static Integer PROD = 0;
     private static HashMap<String, Integer> conf = new HashMap<>();
     private static void readConf(){
         try {
@@ -34,11 +34,6 @@ public class MainProcess {
         Controller myController = new Controller();
         myFactory.init(conf.get("StorageAccessorySize"), conf.get("StorageBodySize"), conf.get("StorageEngineSize"));
         myController.init(conf.get("StorageCarSize"));
-        ThreadPool threadPool = new ThreadPool(myFactory, myController);
-        for (int i = 0; i < 10 ; i++) {
-            threadPool.addTask(new Worker( "C"+i, 10, 1000));
-        }
-        //while(true)
-            //System.out.println(myWindow.checkval);
+        ThreadPool threadPool = new ThreadPool(myFactory, myController, myWindow);
     }
 }

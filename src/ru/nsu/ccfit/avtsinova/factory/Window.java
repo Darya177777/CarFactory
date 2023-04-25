@@ -9,6 +9,9 @@ public class Window extends JFrame{
     public Integer SpeedSupA = 10;
     public Integer SpeedSupB = 0;
     public Boolean LogSale = false;
+    public static JLabel Cars = new JLabel("Cars On Store 0");
+    public static JLabel Need = new JLabel("Need To Proceed 0");
+    public static JLabel Produced = new JLabel("Produced Cars 0");
     public void launch() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400, 400);
@@ -29,9 +32,9 @@ public class Window extends JFrame{
         isLogSale.setHorizontalTextPosition(JCheckBox.LEFT);
         isLogSale.addItemListener(e -> LogSale = isLogSale.isSelected());
         grid.add(isLogSale);
-        grid.add(new JLabel("Need To Proceed"));
-        grid.add(new JLabel("Cars On Store"));
-        grid.add(new JLabel("Produced Cars"));
+        grid.add(Need);
+        grid.add(Cars);
+        grid.add(Produced);
 
 
         grid.add(new JLabel("Speed Dealer"));
