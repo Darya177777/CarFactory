@@ -7,12 +7,10 @@ import ru.nsu.ccfit.avtsinova.threadpool.Task;
 
 public class Dealer implements Task {
     private String name;
-    private int counter;
     private int timeQuant;
 
-    public Dealer(String name, int count, int quant) {
+    public Dealer(String name, int quant) {
         this.name = name;
-        counter = count;
         timeQuant = quant;
     }
     public void performWork(Factory factory, Controller controller) throws InterruptedException {

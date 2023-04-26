@@ -12,12 +12,10 @@ import ru.nsu.ccfit.avtsinova.threadpool.Task;
 
 public class Worker implements Task {
     private String name;
-    private int counter;
     private int timeQuant;
 
-    public Worker(String name, int count, int quant) {
+    public Worker(String name, int quant) {
         this.name = name;
-        counter = count;
         timeQuant = quant;
     }
     public void performWork(Factory factory, Controller controller) throws InterruptedException {
@@ -27,15 +25,19 @@ public class Worker implements Task {
                 Body b = factory.getBody();
                 Engine e = factory.getEngine();
                 Car myCar = new Car();
+                myCar.setID(MainProcess.ID);
+                MainProcess.ID++;
                 myCar.addDetail(a);
                 myCar.addDetail(b);
                 myCar.addDetail(e);
                 synchronized (controller) {
                     controller.addCar(myCar);
                     Window.Cars.setText("Cars On Store " + controller.CStore.getSize());
+                    Thread.sleep(1000);
                     MainProcess.PROD++;
                     Window.Produced.setText("Produced Cars " + MainProcess.PROD);
-                    controller.notify();
+                    if (controller.CStore.isFilled())
+                        controller.notifyAll();
                 }
                 factory.notify();
                 Thread.sleep(timeQuant);

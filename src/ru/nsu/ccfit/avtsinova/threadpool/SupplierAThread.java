@@ -2,6 +2,7 @@ package ru.nsu.ccfit.avtsinova.threadpool;
 
 import ru.nsu.ccfit.avtsinova.factory.Controller;
 import ru.nsu.ccfit.avtsinova.factory.Factory;
+import ru.nsu.ccfit.avtsinova.factory.MainProcess;
 import ru.nsu.ccfit.avtsinova.factory.Window;
 import ru.nsu.ccfit.avtsinova.factory.people.AccessorySupplier;
 
@@ -21,19 +22,15 @@ public class SupplierAThread extends Thread{
     public void run() {
         while (true) {
             synchronized (factory) {
-                if (factory.AStore.isFilled()) {
+                while (factory.AStore.isFilled()) {
                     try {
                         factory.wait();
-                        if (factory.AStore.isFilled())
-                            break;
                     } catch (InterruptedException ex) {
                         System.err.println("Thread was interrupted:" + getName());
                     }
-                    continue;
                 }
-
                 System.out.println(getName() + " got the job");
-                AccessorySupplier a = new AccessorySupplier("AccessoryS", 10, 100 * myWindow.SpeedSupA);
+                AccessorySupplier a = new AccessorySupplier("AccessoryS", MainProcess.N / myWindow.SpeedSupA);
                 try {
                     a.performWork(factory, controller);
                 } catch (InterruptedException ex) {

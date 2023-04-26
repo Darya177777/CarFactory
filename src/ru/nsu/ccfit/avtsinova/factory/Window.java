@@ -7,7 +7,7 @@ public class Window extends JFrame{
     public Integer SpeedDealer = 10;
     public Integer SpeedSupE = 10;
     public Integer SpeedSupA = 10;
-    public Integer SpeedSupB = 0;
+    public Integer SpeedSupB = 10;
     public Boolean LogSale = false;
     public static JLabel Cars = new JLabel("Cars On Store 0");
     public static JLabel Need = new JLabel("Need To Proceed 0");

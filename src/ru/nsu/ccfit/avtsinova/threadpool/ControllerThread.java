@@ -2,10 +2,9 @@ package ru.nsu.ccfit.avtsinova.threadpool;
 
 import ru.nsu.ccfit.avtsinova.factory.Controller;
 import ru.nsu.ccfit.avtsinova.factory.Factory;
+import ru.nsu.ccfit.avtsinova.factory.MainProcess;
 import ru.nsu.ccfit.avtsinova.factory.Window;
 import ru.nsu.ccfit.avtsinova.factory.people.Worker;
-
-import java.util.List;
 
 public class ControllerThread extends Thread{
     private Factory factory;
@@ -20,43 +19,30 @@ public class ControllerThread extends Thread{
     public void run() {
         while (true) {
             synchronized (factory) {
-                if (factory.AStore.getSize() == 0 || factory.BStore.getSize() == 0 || factory.EStore.getSize() == 0
+                while (factory.AStore.getSize() == 0 || factory.BStore.getSize() == 0 || factory.EStore.getSize() == 0
                         || controller.CStore.isFilled()) {
                     try {
-                        factory.wait(1000);
-                        if (factory.AStore.getSize() == 0 || factory.BStore.getSize() == 0 || factory.EStore.getSize() == 0
-                                || controller.CStore.isFilled())
-                            break;
+                        factory.wait();
                     }
                     catch (InterruptedException ex) {
                         System.err.println("Thread was interrupted:"+getName());
                     }
-                    continue;
                 }
-                factory.notify();
+                factory.notifyAll();
             }
             System.out.println(getName() + " got the job");
             synchronized (ThreadPool.taskQueueW) {
-                if (ThreadPool.taskQueueW.size() >= 10) {
+                while (ThreadPool.taskQueueW.size() >= MainProcess.conf.get("StorageCarSize")) {
                     try {
                         ThreadPool.taskQueueW.wait();
-                        if (ThreadPool.taskQueueW.size() >= 10) {
-                            break;
-                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
                 }
-                ThreadPool.taskQueueW.add(new Worker("Worker", 10, 1000));
+                ThreadPool.taskQueueW.add(new Worker("Worker", 1000));
                 Window.Need.setText("Need to Proceeded " + ThreadPool.taskQueueW.size());
-
-                ThreadPool.taskQueueW.notify();
-            }
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                if (ThreadPool.taskQueueW.size() >= MainProcess.conf.get("StorageCarSize"))
+                    ThreadPool.taskQueueW.notifyAll();
             }
         }
     }

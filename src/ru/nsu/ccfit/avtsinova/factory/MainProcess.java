@@ -1,6 +1,5 @@
 package ru.nsu.ccfit.avtsinova.factory;
 
-import ru.nsu.ccfit.avtsinova.factory.people.*;
 import ru.nsu.ccfit.avtsinova.threadpool.ThreadPool;
 
 import java.io.BufferedReader;
@@ -10,7 +9,10 @@ import java.util.HashMap;
 
 public class MainProcess {
     public static Integer PROD = 0;
-    private static HashMap<String, Integer> conf = new HashMap<>();
+    public static Integer ID = 0;
+    public static Integer M = 1000;
+    public static Integer N = 1000;
+    public static HashMap<String, Integer> conf = new HashMap<>();
     private static void readConf(){
         try {
             InputStream inp = MainProcess.class.getResourceAsStream("\\data\\configs.txt");

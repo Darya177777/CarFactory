@@ -2,6 +2,7 @@ package ru.nsu.ccfit.avtsinova.threadpool;
 
 import ru.nsu.ccfit.avtsinova.factory.Controller;
 import ru.nsu.ccfit.avtsinova.factory.Factory;
+import ru.nsu.ccfit.avtsinova.factory.MainProcess;
 import ru.nsu.ccfit.avtsinova.factory.Window;
 import ru.nsu.ccfit.avtsinova.factory.people.EngineSupplier;
 
@@ -20,19 +21,15 @@ public class SupplierEThread extends Thread {
     public void run() {
         while (true) {
             synchronized (factory) {
-                if (factory.EStore.isFilled()) {
+                while (factory.EStore.isFilled()) {
                     try {
                         factory.wait();
-                        if (factory.EStore.isFilled())
-                            break;
                     } catch (InterruptedException ex) {
                         System.err.println("Thread was interrupted:" + getName());
                     }
-                    continue;
                 }
-
                 System.out.println(getName() + " got the job");
-                EngineSupplier a = new EngineSupplier("BodyS", 10, 100 * myWindow.SpeedSupE);
+                EngineSupplier a = new EngineSupplier("BodyS", MainProcess.N / myWindow.SpeedSupE);
                 try {
                     a.performWork(factory, controller);
                 } catch (InterruptedException ex) {

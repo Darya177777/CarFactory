@@ -19,27 +19,24 @@ public class WorkerThread extends Thread{
         Task toExecute;
         while (true) {
             synchronized (ThreadPool.taskQueueW) {
-                if (ThreadPool.taskQueueW.isEmpty()) {
+                while (ThreadPool.taskQueueW.isEmpty()) {
                     try {
                         ThreadPool.taskQueueW.wait();
-                        if (ThreadPool.taskQueueW.isEmpty())
-                            break;
                     } catch (InterruptedException ex) {
                         System.err.println("Thread was interrupted:" + getName());
                     }
-                    continue;
-                } else
-                    toExecute = (Task) ThreadPool.taskQueueW.remove(0);
+                }
+                toExecute = (Task) ThreadPool.taskQueueW.remove(0);
 
                 Window.Need.setText("Need to Proceeded " + ThreadPool.taskQueueW.size());
                 System.out.println(getName() + " got the job: " + toExecute.getName());
                 try {
                     toExecute.performWork(factory, controller);
-                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                ThreadPool.taskQueueW.notify();
+                if (ThreadPool.taskQueueW.isEmpty())
+                    ThreadPool.taskQueueW.notifyAll();
             }
         }
     }

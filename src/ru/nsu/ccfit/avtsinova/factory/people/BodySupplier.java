@@ -2,21 +2,22 @@ package ru.nsu.ccfit.avtsinova.factory.people;
 
 import ru.nsu.ccfit.avtsinova.factory.Controller;
 import ru.nsu.ccfit.avtsinova.factory.Factory;
+import ru.nsu.ccfit.avtsinova.factory.MainProcess;
 import ru.nsu.ccfit.avtsinova.factory.obj.Body;
 import ru.nsu.ccfit.avtsinova.threadpool.Task;
 
 public class BodySupplier implements Task {
     private String name;
-    private int counter;
     private int timeQuant;
 
-    public BodySupplier(String name, int count, int quant) {
+    public BodySupplier(String name, int quant) {
         this.name = name;
-        counter = count;
         timeQuant = quant;
     }
     public void performWork(Factory factory, Controller controller) throws InterruptedException {
         Body e = new Body();
+        e.setID(MainProcess.ID);
+        MainProcess.ID++;
         factory.addBody(e);
         Thread.sleep(timeQuant);
     }
