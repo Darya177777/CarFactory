@@ -8,11 +8,13 @@ import ru.nsu.ccfit.avtsinova.factory.Window;
 public class WorkerThread extends Thread{
     private Factory factory;
     private Controller controller;
+    private Window myWindow;
 
-    public WorkerThread(String name, Factory factory, Controller controller) {
+    public WorkerThread(String name, Window myWindow, Factory factory, Controller controller) {
         super(name);
         this.factory = factory;
         this.controller = controller;
+        this.myWindow = myWindow;
     }
 
     public void run() {
@@ -29,9 +31,8 @@ public class WorkerThread extends Thread{
                 toExecute = (Task) ThreadPool.taskQueueW.remove(0);
 
                 Window.Need.setText("Need to Proceeded " + ThreadPool.taskQueueW.size());
-                System.out.println(getName() + " got the job: " + toExecute.getName());
                 try {
-                    toExecute.performWork(factory, controller);
+                    toExecute.performWork(factory, controller, myWindow);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

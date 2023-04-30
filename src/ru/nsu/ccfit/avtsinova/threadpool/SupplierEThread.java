@@ -28,10 +28,9 @@ public class SupplierEThread extends Thread {
                         System.err.println("Thread was interrupted:" + getName());
                     }
                 }
-                System.out.println(getName() + " got the job");
                 EngineSupplier a = new EngineSupplier("BodyS", MainProcess.N / myWindow.SpeedSupE);
                 try {
-                    a.performWork(factory, controller);
+                    a.performWork(factory, controller, myWindow);
                 } catch (InterruptedException ex) {
                     System.out.println("Error1");
                 }

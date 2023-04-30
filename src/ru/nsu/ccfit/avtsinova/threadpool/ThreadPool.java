@@ -35,7 +35,7 @@ public class ThreadPool implements TaskListener {
          availableThreads.add(new SupplierEThread("SupplierE Thr", myWindow, factory, controller));
       availableThreads.add(new ControllerThread("Controller Thr", factory, controller));
       for (int i = 0; i < MainProcess.conf.get("Workers"); i++)
-         availableThreads.add(new WorkerThread("Worker Thr", factory, controller));
+         availableThreads.add(new WorkerThread("Worker Thr", myWindow, factory, controller));
       for (int i = 0; i < MainProcess.conf.get("Dealers"); i++)
          availableThreads.add(new DealerThread("Dealer Thr", myWindow, factory, controller));
       for (Iterator iter = availableThreads.iterator(); iter.hasNext(); ) {

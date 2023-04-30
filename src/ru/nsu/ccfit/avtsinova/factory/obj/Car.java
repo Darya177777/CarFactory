@@ -14,11 +14,9 @@ public class Car {
     public int getID(){
         return ID;
     }
-    public boolean checkReady(){
-        if (engine.getID() != 0 && body.getID() != 0 && access.getID() != 0)
-            isReady = true;
-        return isReady;
-    }
+    public int getAccessID(){return access.getID();}
+    public int getBodyID(){return body.getID();}
+    public int getEngineID(){return engine.getID();}
     public void addDetail(Detail elem){
         if (elem.getClass() == Body.class && body.getID() == 0)
             body = (Body) elem;

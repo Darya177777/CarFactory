@@ -30,7 +30,6 @@ public class ControllerThread extends Thread{
                 }
                 factory.notifyAll();
             }
-            System.out.println(getName() + " got the job");
             synchronized (ThreadPool.taskQueueW) {
                 while (ThreadPool.taskQueueW.size() >= MainProcess.conf.get("StorageCarSize")) {
                     try {
@@ -43,6 +42,12 @@ public class ControllerThread extends Thread{
                 Window.Need.setText("Need to Proceeded " + ThreadPool.taskQueueW.size());
                 if (ThreadPool.taskQueueW.size() >= MainProcess.conf.get("StorageCarSize"))
                     ThreadPool.taskQueueW.notifyAll();
+                try{
+                    Thread.sleep(2000);
+                }
+                catch (Exception ex){
+
+                }
             }
         }
     }

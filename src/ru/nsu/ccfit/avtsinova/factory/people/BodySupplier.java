@@ -3,6 +3,7 @@ package ru.nsu.ccfit.avtsinova.factory.people;
 import ru.nsu.ccfit.avtsinova.factory.Controller;
 import ru.nsu.ccfit.avtsinova.factory.Factory;
 import ru.nsu.ccfit.avtsinova.factory.MainProcess;
+import ru.nsu.ccfit.avtsinova.factory.Window;
 import ru.nsu.ccfit.avtsinova.factory.obj.Body;
 import ru.nsu.ccfit.avtsinova.threadpool.Task;
 
@@ -14,7 +15,7 @@ public class BodySupplier implements Task {
         this.name = name;
         timeQuant = quant;
     }
-    public void performWork(Factory factory, Controller controller) throws InterruptedException {
+    public void performWork(Factory factory, Controller controller, Window w) throws InterruptedException {
         Body e = new Body();
         e.setID(MainProcess.ID);
         MainProcess.ID++;

@@ -18,7 +18,7 @@ public class Worker implements Task {
         this.name = name;
         timeQuant = quant;
     }
-    public void performWork(Factory factory, Controller controller) throws InterruptedException {
+    public void performWork(Factory factory, Controller controller, Window w) throws InterruptedException {
         try {
             synchronized (factory) {
                 Accessory a = factory.getAccessory();

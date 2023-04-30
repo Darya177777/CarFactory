@@ -2,17 +2,17 @@ package ru.nsu.ccfit.avtsinova.factory;
 
 import ru.nsu.ccfit.avtsinova.threadpool.ThreadPool;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.HashMap;
 
 public class MainProcess {
     public static Integer PROD = 0;
     public static Integer ID = 0;
-    public static Integer M = 1000;
+    public static Integer M = 4000;
     public static Integer N = 1000;
     public static HashMap<String, Integer> conf = new HashMap<>();
+    private static FileWriter writer;
+
     private static void readConf(){
         try {
             InputStream inp = MainProcess.class.getResourceAsStream("\\data\\configs.txt");
@@ -27,8 +27,20 @@ public class MainProcess {
             e.printStackTrace();
         }
     }
+    public static void writeData(String data){
+        try {
+            writer = new FileWriter("src/ru/nsu/ccfit/avtsinova/factory/data/log.txt", true);
+            writer.write(data);
+            writer.append('\n');
+            writer.flush();
+            writer.close();
+        }
+        catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         readConf();
         Window myWindow = new Window();
         myWindow.launch();

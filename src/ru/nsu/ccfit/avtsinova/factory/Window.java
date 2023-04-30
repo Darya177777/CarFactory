@@ -8,7 +8,7 @@ public class Window extends JFrame{
     public Integer SpeedSupE = 10;
     public Integer SpeedSupA = 10;
     public Integer SpeedSupB = 10;
-    public Boolean LogSale = false;
+    public Boolean LogSale = true;
     public static JLabel Cars = new JLabel("Cars On Store 0");
     public static JLabel Need = new JLabel("Need To Proceed 0");
     public static JLabel Produced = new JLabel("Produced Cars 0");
@@ -66,7 +66,6 @@ public class Window extends JFrame{
         grid.add(slider4);
 
         getContentPane().add(grid);
-        //getContentPane().add(label, BorderLayout.SOUTH);
         setVisible(true);
     }
 }
